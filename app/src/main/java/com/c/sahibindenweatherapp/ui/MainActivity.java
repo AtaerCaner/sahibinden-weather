@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.c.sahibindenweatherapp.BaseActivity;
 import com.c.sahibindenweatherapp.R;
 import com.c.sahibindenweatherapp.adapter.WeatherItemAdapter;
+import com.c.sahibindenweatherapp.api.model.WeatherItems;
 import com.c.sahibindenweatherapp.api.model.WeatherResponse;
 import com.c.sahibindenweatherapp.manager.NetworkManager;
 import com.c.sahibindenweatherapp.util.DateUtil;
@@ -35,10 +36,17 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        weatherItemAdapter = new WeatherItemAdapter();
+        weatherItemAdapter = new WeatherItemAdapter(new WeatherItemAdapter.WeatherItemClickListener() {
+            @Override
+            public void onItemClicked(WeatherItems weatherItems) {
 
 
-        Log.e("xxx", "index = " + DateUtil.getTodaysDayOfWeekAsIndex());
+            }
+        });
+
+
+
+
 
         initViews();
 

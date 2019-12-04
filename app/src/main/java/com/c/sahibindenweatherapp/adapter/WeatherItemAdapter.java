@@ -1,5 +1,6 @@
 package com.c.sahibindenweatherapp.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +25,16 @@ import java.util.List;
 public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.WeatherItemHolder>{
 
     private List<WeatherItems> weatherItems;
+    private WeatherItemClickListener weatherItemClickListener;
 
-    public WeatherItemAdapter() {
+
+    public interface WeatherItemClickListener {
+        void onItemClicked(WeatherItems weatherItems);
+    }
+
+    public WeatherItemAdapter(WeatherItemClickListener weatherItemClickListener) {
         weatherItems = new ArrayList<>();
+        this.weatherItemClickListener = weatherItemClickListener;
     }
 
     @NonNull
@@ -39,12 +47,15 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
     @Override
     public void onBindViewHolder(@NonNull WeatherItemHolder holder, int position) {
         WeatherItems weatherItems = this.weatherItems.get(position);
+
         Double day = weatherItems.getTemp().getDay();
 
         holder.txtTemp.setText(TempUtil.getCelcius(day));
         String dayName = DateUtil.getGivenDayOfWeekAsName((position + DateUtil.getTodaysDayOfWeekAsIndex()) % 7);
-
         holder.txtDay.setText(dayName);
+
+
+        holder.itemView.setOnClickListener(view -> weatherItemClickListener.onItemClicked(weatherItems));
     }
 
     @Override
@@ -65,8 +76,8 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
     }
 
 
-    public void setWeatherItems(List<WeatherItems> weatherItems1) {
-        weatherItems = weatherItems1;
+    public void setWeatherItems(List<WeatherItems> weatherItems) {
+        this.weatherItems = weatherItems;
         notifyDataSetChanged();
     }
 
