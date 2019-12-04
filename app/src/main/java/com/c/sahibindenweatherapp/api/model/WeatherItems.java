@@ -5,7 +5,7 @@ package com.c.sahibindenweatherapp.api.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class List {
+public class WeatherItems {
 
     @SerializedName("dt")
     @Expose

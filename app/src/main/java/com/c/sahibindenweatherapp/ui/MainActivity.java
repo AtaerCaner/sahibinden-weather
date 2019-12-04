@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.c.sahibindenweatherapp.BaseActivity;
 import com.c.sahibindenweatherapp.R;
+import com.c.sahibindenweatherapp.adapter.WeatherItemAdapter;
 import com.c.sahibindenweatherapp.api.model.WeatherResponse;
 import com.c.sahibindenweatherapp.manager.NetworkManager;
 import com.c.sahibindenweatherapp.util.TempUtil;
@@ -25,12 +27,13 @@ public class MainActivity extends BaseActivity {
 
     private TextView txtCurrentTemp, txtCurrentDay;
     private RecyclerView rcvItems;
+    private WeatherItemAdapter weatherItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        weatherItemAdapter = new WeatherItemAdapter();
 
         initViews();
 
@@ -39,8 +42,11 @@ public class MainActivity extends BaseActivity {
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
                 WeatherResponse weatherResponse = response.body();
                 if (weatherResponse != null) {
-                    Double day = weatherResponse.getList().get(0).getTemp().getDay();
+                    Double day = weatherResponse.getWeatherItems().get(0).getTemp().getDay();
                     txtCurrentTemp.setText(TempUtil.getCelcius(day));
+
+                    weatherItemAdapter.setWeatherItems(weatherResponse.getWeatherItems());
+
                 }
 
             }
@@ -57,6 +63,9 @@ public class MainActivity extends BaseActivity {
         txtCurrentTemp = findViewById(R.id.txtCurrentTemp);
         txtCurrentDay = findViewById(R.id.txtCurrentDay);
         rcvItems = findViewById(R.id.rcvItems);
+
+        rcvItems.setAdapter(weatherItemAdapter);
+        rcvItems.setLayoutManager(new LinearLayoutManager(this));
     }
 
 }
