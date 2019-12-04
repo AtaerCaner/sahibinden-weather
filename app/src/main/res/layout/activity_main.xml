@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background"
+    tools:context=".ui.MainActivity">
+
+
+    <TextView
+        android:id="@+id/txtCurrentDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salı"
+        android:textColor="@color/main_white"
+        android:textSize="@dimen/main_text_size"
+        android:layout_marginTop="200dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtCurrentTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15°"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/main_white"
+        android:textSize="@dimen/main_text_size"
+        app:layout_constraintStart_toStartOf="@id/txtCurrentDay"
+        app:layout_constraintEnd_toEndOf="@id/txtCurrentDay"
+        app:layout_constraintTop_toBottomOf="@id/txtCurrentDay"
+        />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvItems"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/txtCurrentTemp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
