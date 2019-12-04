@@ -7,6 +7,10 @@
     android:background="@drawable/app_background"
     tools:context=".ui.MainActivity">
 
+    
+    <EditText
+        android:layout_width=""
+        android:layout_height=""
 
     <TextView
         android:id="@+id/txtCurrentDay"

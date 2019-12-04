@@ -4,14 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.c.sahibindenweatherapp.R;
 import com.c.sahibindenweatherapp.api.model.WeatherItems;
+import com.c.sahibindenweatherapp.util.ResourceUtil;
 import com.c.sahibindenweatherapp.util.TempUtil;
 
 /**
@@ -23,9 +26,12 @@ public class DetailFragment extends Fragment {
 
     private TextView txtSelectedStatus;
     private TextView txtSelectedTemp;
+    private ImageView imgSelected;
+
 
     public static final String BUNDLE_DETAIL_FRAGMENT = "bundle_detail_fragment";
     private WeatherItems weatherItems;
+
 
     @Nullable
     @Override
@@ -44,8 +50,12 @@ public class DetailFragment extends Fragment {
 
         txtSelectedStatus.setText(weatherItems.getWeather().get(0).getDescription());
 
-        
+
         txtSelectedTemp.setText(TempUtil.getCelcius(weatherItems.getTemp().getDay()));
+
+
+        Glide.with(getContext()).load(ResourceUtil.getImageUrl(weatherItems.getWeather().get(0).getIcon())).into(imgSelected);
+
 
     }
 
@@ -53,5 +63,6 @@ public class DetailFragment extends Fragment {
     private void initViews(View view) {
         txtSelectedStatus = view.findViewById(R.id.txtSelectedStatus);
         txtSelectedTemp = view.findViewById(R.id.txtSelectedTemp);
+        imgSelected = view.findViewById(R.id.imgSelected);
     }
 }

@@ -6,6 +6,7 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.c.sahibindenweatherapp.BaseActivity;
 import com.c.sahibindenweatherapp.R;
 import com.c.sahibindenweatherapp.api.model.WeatherItems;

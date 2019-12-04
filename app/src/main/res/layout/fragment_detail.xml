@@ -35,5 +35,15 @@
         />
 
 
+    <ImageView
+        android:id="@+id/imgSelected"
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/txtSelectedTemp"
+        app:layout_constraintBottom_toBottomOf="@id/txtSelectedTemp"
+        app:layout_constraintTop_toTopOf="@id/txtSelectedTemp"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
