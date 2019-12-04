@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/sky_blue">
+
+
+    <TextView
+        android:id="@+id/txtSelectedStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sky is clear"
+        android:textSize="25sp"
+        android:textColor="@color/main_white"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/txtSelectedTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="100sp"
+        android:textColor="@color/main_white"
+        android:text="15"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@id/txtSelectedStatus"
+        app:layout_constraintEnd_toEndOf="@id/txtSelectedStatus"
+        app:layout_constraintTop_toBottomOf="@id/txtSelectedStatus"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,10 +2,13 @@
 package com.c.sahibindenweatherapp.api.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Temp {
+public class Temp implements Parcelable {
 
     @SerializedName("day")
     @Expose
@@ -25,6 +28,51 @@ public class Temp {
     @SerializedName("morn")
     @Expose
     private Double morn;
+
+    protected Temp(Parcel in) {
+        if (in.readByte() == 0) {
+            day = null;
+        } else {
+            day = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            min = null;
+        } else {
+            min = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            max = null;
+        } else {
+            max = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            night = null;
+        } else {
+            night = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            eve = null;
+        } else {
+            eve = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            morn = null;
+        } else {
+            morn = in.readDouble();
+        }
+    }
+
+    public static final Creator<Temp> CREATOR = new Creator<Temp>() {
+        @Override
+        public Temp createFromParcel(Parcel in) {
+            return new Temp(in);
+        }
+
+        @Override
+        public Temp[] newArray(int size) {
+            return new Temp[size];
+        }
+    };
 
     public Double getDay() {
         return day;
@@ -74,4 +122,48 @@ public class Temp {
         this.morn = morn;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (day == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(day);
+        }
+        if (min == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(min);
+        }
+        if (max == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(max);
+        }
+        if (night == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(night);
+        }
+        if (eve == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(eve);
+        }
+        if (morn == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(morn);
+        }
+    }
 }

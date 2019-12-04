@@ -1,6 +1,7 @@
 package com.c.sahibindenweatherapp.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -36,16 +37,12 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        weatherItemAdapter = new WeatherItemAdapter(new WeatherItemAdapter.WeatherItemClickListener() {
-            @Override
-            public void onItemClicked(WeatherItems weatherItems) {
+        weatherItemAdapter = new WeatherItemAdapter(weatherItems -> {
 
-
-            }
+            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+            intent.putExtra(DetailActivity.BUNDLE_DETAIL_ACTIVITY, weatherItems);
+            startActivity(intent);
         });
-
-
-
 
 
         initViews();
