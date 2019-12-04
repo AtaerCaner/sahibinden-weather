@@ -13,6 +13,7 @@ import com.c.sahibindenweatherapp.R;
 import com.c.sahibindenweatherapp.adapter.WeatherItemAdapter;
 import com.c.sahibindenweatherapp.api.model.WeatherResponse;
 import com.c.sahibindenweatherapp.manager.NetworkManager;
+import com.c.sahibindenweatherapp.util.DateUtil;
 import com.c.sahibindenweatherapp.util.TempUtil;
 
 import retrofit2.Call;
@@ -33,7 +34,11 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         weatherItemAdapter = new WeatherItemAdapter();
+
+
+        Log.e("xxx", "index = " + DateUtil.getTodaysDayOfWeekAsIndex());
 
         initViews();
 
@@ -44,6 +49,8 @@ public class MainActivity extends BaseActivity {
                 if (weatherResponse != null) {
                     Double day = weatherResponse.getWeatherItems().get(0).getTemp().getDay();
                     txtCurrentTemp.setText(TempUtil.getCelcius(day));
+                    txtCurrentDay.setText(DateUtil.getTodayAsName());
+
 
                     weatherItemAdapter.setWeatherItems(weatherResponse.getWeatherItems());
 
