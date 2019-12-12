@@ -4,8 +4,10 @@ package com.c.sahibindenweatherapp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ public class MainActivity extends BaseActivity {
     private TextView txtCurrentTemp, txtCurrentDay;
     private EditText edtCity;
     private Button btnOk;
+    private ProgressBar progress;
     private RecyclerView rcvItems;
     private WeatherItemAdapter weatherItemAdapter;
 
@@ -58,8 +61,12 @@ public class MainActivity extends BaseActivity {
 
 
         btnOk.setOnClickListener(view -> {
-
-            fetchWeatherData(edtCity.getText().toString());
+            if (!edtCity.getText().toString().equals("")) {
+                progress.setVisibility(View.VISIBLE);
+                fetchWeatherData(edtCity.getText().toString());
+            } else {
+                edtCity.setError("Şehir alanı doldurulmalıdır");
+            }
 
         });
 
@@ -73,6 +80,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
                 WeatherResponse weatherResponse = response.body();
+
+                progress.setVisibility(View.GONE);
                 if (weatherResponse != null) {
                     Double day = weatherResponse.getWeatherItems().get(0).getTemp().getDay();
                     txtCurrentTemp.setText(TempUtil.getCelcius(day));
@@ -93,6 +102,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<WeatherResponse> call, Throwable t) {
+                progress.setVisibility(View.GONE);
                 showError(t.getMessage());
             }
         });
@@ -109,6 +119,7 @@ public class MainActivity extends BaseActivity {
         rcvItems = findViewById(R.id.rcvItems);
         edtCity = findViewById(R.id.edtCity);
         btnOk = findViewById(R.id.btnOk);
+        progress = findViewById(R.id.progress);
 
         rcvItems.setAdapter(weatherItemAdapter);
         rcvItems.setLayoutManager(new LinearLayoutManager(this));
