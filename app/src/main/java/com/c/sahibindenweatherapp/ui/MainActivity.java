@@ -4,7 +4,10 @@ package com.c.sahibindenweatherapp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +21,8 @@ import com.c.sahibindenweatherapp.manager.NetworkManager;
 import com.c.sahibindenweatherapp.util.DateUtil;
 import com.c.sahibindenweatherapp.util.TempUtil;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +34,8 @@ public class MainActivity extends BaseActivity {
 
 
     private TextView txtCurrentTemp, txtCurrentDay;
+    private EditText edtCity;
+    private Button btnOk;
     private RecyclerView rcvItems;
     private WeatherItemAdapter weatherItemAdapter;
 
@@ -47,7 +54,22 @@ public class MainActivity extends BaseActivity {
 
         initViews();
 
-        NetworkManager.getWeather("Istanbul").enqueue(new Callback<WeatherResponse>() {
+        fetchWeatherData("İstanbul");
+
+
+        btnOk.setOnClickListener(view -> {
+
+            fetchWeatherData(edtCity.getText().toString());
+
+        });
+
+
+    }
+
+
+
+    private void fetchWeatherData(String city) {
+        NetworkManager.getWeather(city).enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
                 WeatherResponse weatherResponse = response.body();
@@ -58,23 +80,35 @@ public class MainActivity extends BaseActivity {
 
 
                     weatherItemAdapter.setWeatherItems(weatherResponse.getWeatherItems());
+                } else {
 
+                    try {
+                        showError(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
 
             @Override
             public void onFailure(Call<WeatherResponse> call, Throwable t) {
-                Log.d(TAG, "onResponse: ");
+                showError(t.getMessage());
             }
         });
     }
 
 
+    private void showError(String message) {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
     private void initViews() {
         txtCurrentTemp = findViewById(R.id.txtCurrentTemp);
         txtCurrentDay = findViewById(R.id.txtCurrentDay);
         rcvItems = findViewById(R.id.rcvItems);
+        edtCity = findViewById(R.id.edtCity);
+        btnOk = findViewById(R.id.btnOk);
 
         rcvItems.setAdapter(weatherItemAdapter);
         rcvItems.setLayoutManager(new LinearLayoutManager(this));
