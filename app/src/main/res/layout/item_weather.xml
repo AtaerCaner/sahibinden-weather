@@ -6,15 +6,25 @@
     android:padding="10dp">
 
 
+    <ImageView
+        android:id="@+id/imgItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
     <TextView
         android:id="@+id/txtDay"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:text="Carsamba"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/main_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toEndOf="@id/imgItem"
+        app:layout_constraintTop_toTopOf="@id/imgItem"
+        app:layout_constraintBottom_toBottomOf="@id/imgItem"/>
 
 
     <TextView

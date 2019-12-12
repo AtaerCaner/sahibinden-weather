@@ -1,17 +1,21 @@
 package com.c.sahibindenweatherapp.adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.c.sahibindenweatherapp.R;
 import com.c.sahibindenweatherapp.api.model.WeatherItems;
 import com.c.sahibindenweatherapp.util.DateUtil;
+import com.c.sahibindenweatherapp.util.ResourceUtil;
 import com.c.sahibindenweatherapp.util.TempUtil;
 
 import java.util.ArrayList;
@@ -24,6 +28,7 @@ import java.util.List;
 
 public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.WeatherItemHolder>{
 
+    private final Context context;
     private List<WeatherItems> weatherItems;
     private WeatherItemClickListener weatherItemClickListener;
 
@@ -32,8 +37,9 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
         void onItemClicked(WeatherItems weatherItems);
     }
 
-    public WeatherItemAdapter(WeatherItemClickListener weatherItemClickListener) {
+    public WeatherItemAdapter(Context context, WeatherItemClickListener weatherItemClickListener) {
         weatherItems = new ArrayList<>();
+        this.context = context;
         this.weatherItemClickListener = weatherItemClickListener;
     }
 
@@ -55,6 +61,8 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
         holder.txtDay.setText(dayName);
 
 
+        Glide.with(context).load(ResourceUtil.getImageUrl(weatherItems.getWeather().get(0).getIcon())).into(holder.imgItem);
+
         holder.itemView.setOnClickListener(view -> weatherItemClickListener.onItemClicked(weatherItems));
     }
 
@@ -67,11 +75,13 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
 
         TextView txtDay;
         TextView txtTemp;
+        ImageView imgItem;
 
         WeatherItemHolder(@NonNull View itemView) {
             super(itemView);
             txtDay = itemView.findViewById(R.id.txtDay);
             txtTemp = itemView.findViewById(R.id.txtTemp);
+            imgItem = itemView.findViewById(R.id.imgItem);
         }
     }
 

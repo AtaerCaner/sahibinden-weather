@@ -12,33 +12,34 @@
         android:id="@+id/edtCity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"
+        android:hint="Lütfen şehir giriniz"
+        android:textColorHint="@color/sky_blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="10dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="@id/edtCity"
-        app:layout_constraintEnd_toEndOf="@id/edtCity"
-        app:layout_constraintTop_toBottomOf="@id/edtCity"
         android:layout_marginTop="20dp"
-        android:text="Fetch Weather"/>
+        android:background="@android:color/transparent"
+        android:text="Fetch Weather"
+        app:layout_constraintEnd_toEndOf="@id/edtCity"
+        app:layout_constraintStart_toStartOf="@id/edtCity"
+        app:layout_constraintTop_toBottomOf="@id/edtCity" />
 
 
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"
-         app:layout_constraintBottom_toBottomOf="parent"/>
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -67,6 +68,15 @@
         app:layout_constraintEnd_toEndOf="@id/txtCurrentDay"
         app:layout_constraintStart_toStartOf="@id/txtCurrentDay"
         app:layout_constraintTop_toBottomOf="@id/txtCurrentDay" />
+
+    <ImageView
+        android:id="@+id/imgCurrent"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/txtCurrentTemp"
+        app:layout_constraintStart_toEndOf="@id/txtCurrentTemp"
+        app:layout_constraintTop_toTopOf="@id/txtCurrentTemp" />
 
 
     <View
